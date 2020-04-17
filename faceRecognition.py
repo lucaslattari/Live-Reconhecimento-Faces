@@ -9,16 +9,16 @@ def recognizeImage(args):
     encodingsTest = face_recognition.face_encodings(rgb, boxes)
 
     encodingsTrain = {}
-    totalPeople = 0
+    peopleCount = 0
     for file in glob.glob("*.encodings"):
-        encodingsTrain[totalPeople] = pickle.loads(open(file, "rb").read())
-        totalPeople += 1
+        encodingsTrain[peopleCount] = pickle.loads(open(file, "rb").read())
+        peopleCount += 1
 
     names = []
     name = "Unknown"
 
     for encodingTest in encodingsTest:
-        for peopleId in range(0, totalPeople):
+        for peopleId in range(0, peopleCount):
             matches = face_recognition.compare_faces(encodingsTrain[peopleId]['encodings'], encodingTest)
 
             if True in matches:
@@ -40,11 +40,12 @@ def recognizeImage(args):
     cv2.imwrite(args.output_file, image)
 
 def recognizeVideo(args):
+    if(os.path.exists("data.mp4")):
+        os.remove("data.mp4")
+
     yt = YouTube(args.youtube_url)
     video_filename = yt.streams.filter(file_extension='mp4').get_highest_resolution().download()
 
-    if(os.path.exists("data.mp4")):
-        os.remove("data.mp4")
     os.rename(video_filename, "data.mp4")
     videoCaptureInput = cv2.VideoCapture('data.mp4')
     fps = videoCaptureInput.get(cv2.CAP_PROP_FPS)
@@ -60,20 +61,20 @@ def recognizeVideo(args):
 
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        boxes = face_recognition.face_locations(rgb, model='cnn')
+        boxes = face_recognition.face_locations(rgb, model='cnn') #hog
         encodingsTest = face_recognition.face_encodings(rgb, boxes)
 
         encodingsTrain = {}
-        totalPeople = 0
+        peopleCount = 0
         for file in glob.glob("*.encodings"):
-            encodingsTrain[totalPeople] = pickle.loads(open(file, "rb").read())
-            totalPeople += 1
+            encodingsTrain[peopleCount] = pickle.loads(open(file, "rb").read())
+            peopleCount += 1
 
         names = []
         name = "Unknown"
 
         for encodingTest in encodingsTest:
-            for peopleId in range(0, totalPeople):
+            for peopleId in range(0, peopleCount):
                 matches = face_recognition.compare_faces(encodingsTrain[peopleId]['encodings'], encodingTest)
 
                 if True in matches:

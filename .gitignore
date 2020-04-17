@@ -11,3 +11,4 @@ mila_peixe/
 vivi_peixe/
 env/
 videos.txt
+shape_predictor_68_face_landmarks.dat

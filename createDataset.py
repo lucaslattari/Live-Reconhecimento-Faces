@@ -42,7 +42,7 @@ def saveFacesInFolder():
 	knownEncodings = []
 	knownNames = []
 	while(True):
-		ret, frame = videoCapture.read()
+		_, frame = videoCapture.read()
 		if frame is None or counterImg > 200:
 			break
 
