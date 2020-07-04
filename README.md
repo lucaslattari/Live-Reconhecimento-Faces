@@ -1,6 +1,10 @@
 # Live-Reconhecimento-Faces
 
-Projeto desenvolvido em live para criar um código de reconhecimento de faces.
+Projeto desenvolvido em live para criar um código de reconhecimento de faces. Para acessar a live descrevendo completamente o projeto, clique na imagem abaixo.
+
+<p align="center">
+  <a href="https://youtu.be/7ELvYSHCAc4"><img src="https://img.youtube.com/vi/t9Et8YwKHgU/maxresdefault.jpg"></a>
+</p>
 
 ## Instalação
 
